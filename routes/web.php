@@ -99,6 +99,7 @@ Route::group(['prefix' => 'order','middleware' => 'customer'], function() {
 Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'check_login']);
 
+
 Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function() {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');

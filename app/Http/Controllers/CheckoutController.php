@@ -35,14 +35,15 @@ class CheckoutController extends Controller
         $req->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'phone' => 'required',
+            'phone' => 'required|min:9|max:11',
             'address' => 'required',
         ]);
 
         $data = $req->only('name', 'email', 'phone', 'address', 'payment_method', 'transactionId');
         $data['customer_id'] = $auth->id;
         $data['status'] = 0;
-
+        $data['created_at'] = date('Y-m-d H:i:s'); // Định dạng chuẩn của MySQL
+        
         if ($order = Order::create($data)) {
             $token = Str::random(40);
 

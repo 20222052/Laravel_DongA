@@ -124,14 +124,15 @@
         if (this.value == '1') { // If Bank Transfer is selected
             qrSection.style.display = 'block';
             submitBtn.style.display = 'none'; // Hide submit button
-            let transactionId = 'TTHD20000USERID1ORDERID23';
-            // let transactionId = 'Order' + Math.floor(Math.random() * 10000);
+            // let transactionId = 'ORDER2419USER13TOTALAMOUNT5250';
+            let transactionId = 'Order' + Math.floor(Math.random() * 10000) + 'User' + {{ auth('cus')->user()->id }};
             qrCode.src = "https://qr.sepay.vn/img?acc=2004020423&bank=MBBank&amount=" + totalAmount + "&des=" + transactionId;
-
+            document.getElementById("transactionId").value = transactionId.toUpperCase();
             // Start checking for payment confirmation
             checkPaymentStatus(transactionId);
         } else {
             qrSection.style.display = 'none';
+            document.getElementById("transactionId").value = '0';
             submitBtn.style.display = 'block'; // Show submit button
         }
     });
@@ -145,7 +146,7 @@
             let data = await response.json();
 
             if (data && data.transactions) {
-                let found = data.transactions.some(txn => txn.transaction_content.includes(transactionId));
+                let found = data.transactions.some(txn => txn.transaction_content.includes(transactionId.toUpperCase()));
 
                 if (found) {
                     clearInterval(checkInterval);
@@ -161,5 +162,4 @@
 }
 
 </script>
-
 @stop

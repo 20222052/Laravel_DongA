@@ -11,9 +11,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $cats = Category::orderBy('name','ASC')->select('id','name')->get();
@@ -21,18 +19,14 @@ class ProductController extends Controller
         return view('admin.product.index', compact('data', 'cats'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         $cats = Category::orderBy('name','ASC')->select('id','name')->get();
         return view('admin.product.create', compact('cats'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -69,26 +63,19 @@ class ProductController extends Controller
         return redirect()->back()->with('no','Something error, Please try again');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
+    public function show(Request $request)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Product $product)
     {
         $cats = Category::orderBy('name','ASC')->select('id','name')->get();
         return view('admin.product.edit', compact('cats','product'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Product $product)
     {
         $request->validate([
@@ -145,9 +132,7 @@ class ProductController extends Controller
         return redirect()->back()->with('no','Something error, Please try again');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Product $product)
     {
         if(Order::where('product_id', $product->id)) {

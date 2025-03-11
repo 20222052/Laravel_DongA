@@ -44,7 +44,7 @@
                     @foreach ($auth->orders as $item)
                     <tr>
                             <td scope="row">{{ $loop->index + 1 }}</td>
-                            <td>{{ $item->created_at->format('d/m/Y') }}</td>
+                            <td>{{ $item->created_at ? $item->created_at->format('d/m/Y') : 'N/A' }}</td>
                             <td>
                                 @if ($item->status == 0)
                                 <span>Chưa xác nhận</span>
@@ -97,7 +97,7 @@
                 <a href="" class="btn btn-primary">Continue shopping</a>
                 @if($carts->count())
                 <a href="{{ route('cart.clear') }}" class="btn btn-danger" onclick="return confirm('Are you sure wanto delete all product?')" ><i class="fa fa-trash"></i> Clear shopping</a>
-                <a href="{{ route('order.checkout') }}"" class="btn btn-success">Place Order</a>
+                <a href="{{ route('order.checkout') }}" class="btn btn-success">Place Order</a>
                 @endif
                </div>
             </div>

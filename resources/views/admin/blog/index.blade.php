@@ -52,7 +52,7 @@
             <td>
                 <img src="uploads/blog/{{ $model->image }}" width="40">
             </td>
-            <td>{{ $model->description }}</td>
+            <td>{{ \Illuminate\Support\Str::limit($model->description, 100) }}</td>
             <td>{{ $model->position }}</td>
             <td>{{ $model->status == 0 ? 'Hidden' : 'Publish' }}</td>
             <td>{{ $model->created_at }}</td>
